@@ -3,9 +3,6 @@ name: deploy
 on:
   workflow_call:
     inputs:
-      tomcat_path:
-        required: true
-        type: string
       env_name:
         required: true
         type: string
@@ -18,8 +15,8 @@ jobs:
     steps:   
     - name: Deploy app
       run: |
-        if (Test-Path ${{ inputs.tomcat_path }}\webapps\sampleapp) {
-          Remove-Item ${{ inputs.tomcat_path }}\webapps\sampleapp -Recurse -Force
-          Remove-Item ${{ inputs.tomcat_path }}\webapps\*.war -Force
+        if (Test-Path ${{ secret.TOMCAT_PATH_ENV }}\webapps\sampleapp) {
+          Remove-Item ${{ secret.TOMCAT_PATH_ENV }}\webapps\sampleapp -Recurse -Force
+          Remove-Item ${{ secret.TOMCAT_PATH_ENV }}\webapps\*.war -Force
         }
-        Move-Item .\*.war ${{ inputs.tomcat_path }}\webapps\
+        Move-Item .\*.war ${{ secret.TOMCAT_PATH_ENV }}\webapps\
