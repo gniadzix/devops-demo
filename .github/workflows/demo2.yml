@@ -8,7 +8,7 @@ on:
         required: true
         default: main
         type: string
-      envname:
+      env_name:
         description: 'Provide env name'
         required: true
         default: demo_env
@@ -33,4 +33,4 @@ jobs:
     uses: gniadzix/devops-demo/.github/workflows/deploy.yml@main
     with:
       tomcat_path: ${{secrets.TOMCAT_PATH_ENV}}
-      env_name: ${{ github.event.inputs.envname }}
+      env_name: ${{ github.event.inputs.env_name }}
