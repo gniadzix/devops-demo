@@ -13,10 +13,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build sample app
+      shell: pwsh
       run: |
         jar -cvf sampleapp.war *
-      shell: pwsh
+      
     - name: Deploy app
+      shell: pwsh
       run: |
         $TomcatPath = "C:\devops-demo\tomcat
         .\$TomcatPath\bin\shutdown.bat
@@ -26,4 +28,4 @@ jobs:
         }
         Move-Item .\*.war $TomcatPath\webapps\
         .\$TomcatPath\bin\startup.bat
-      shell: pwsh
+      
