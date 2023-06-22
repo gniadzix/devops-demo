@@ -13,6 +13,7 @@ on:
 
 jobs:
   demo:
+    environment: demo_env
     runs-on: self-hosted
 
     steps:
@@ -25,9 +26,6 @@ jobs:
         jar -cvf sampleapp.war *
       
     - name: Deploy app
-      run: |
-        if (Test-Path ${{secrets.TOMCAT_PATH}}\webapps\sampleapp) {
-          Remove-Item ${{secrets.TOMCAT_PATH}}\webapps\sampleapp -Recurse -Force
-          Remove-Item ${{secrets.TOMCAT_PATH}}\webapps\*.war -Force
-        }
-        Move-Item .\*.war ${{secrets.TOMCAT_PATH}}\webapps\
+      uses: ./.github/workflows/deploy.yml
+      with:
+        tomcat_path: ${{secrets.TOMCAT_PATH_ENV}}
