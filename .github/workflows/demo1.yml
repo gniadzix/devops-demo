@@ -1,17 +1,25 @@
 name: demo1
 
 on:
-  push:
-    branches: [ "main" ]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Provide branch name'
+        required: true
+        default: main
+        type: string
   pull_request:
     branches: [ "main" ]
 
 jobs:
-  build:
+  demo:
     runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.inputs.branch }}
+        
     - name: Build sample app
       run: |
         jar -cvf sampleapp.war *
