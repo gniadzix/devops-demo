@@ -30,6 +30,7 @@ jobs:
         jar -cvf sampleapp.war *
         
   deploy:
+    needs: build
     uses: gniadzix/devops-demo/.github/workflows/deploy.yml@main
     with:
       env_name: ${{ github.event.inputs.env_name }}
