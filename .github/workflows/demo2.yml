@@ -32,5 +32,4 @@ jobs:
   deploy:
     uses: gniadzix/devops-demo/.github/workflows/deploy.yml@main
     with:
-      tomcat_path: ${{secrets.TOMCAT_PATH_ENV}}
       env_name: ${{ github.event.inputs.env_name }}
