@@ -26,6 +26,6 @@ jobs:
         jar -cvf sampleapp.war *
       
     - name: Deploy app
-      uses: ./.github/workflows/deploy.yml
+      uses: gniadzix/devops-demo/.github/workflows/deploy.yml@main
       with:
         tomcat_path: ${{secrets.TOMCAT_PATH_ENV}}
