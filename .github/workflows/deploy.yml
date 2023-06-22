@@ -1,1 +1,21 @@
+name: deploy
 
+on:
+  workflow_call:
+    inputs:
+      tomcat_path:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:   
+    - name: Deploy app
+      run: |
+        if (Test-Path ${{ inputs.tomcat_path }}\webapps\sampleapp) {
+          Remove-Item ${{ inputs.tomcat_path }}\webapps\sampleapp -Recurse -Force
+          Remove-Item ${{ inputs.tomcat_path }}\webapps\*.war -Force
+        }
+        Move-Item .\*.war ${{ inputs.tomcat_path }}\webapps\
