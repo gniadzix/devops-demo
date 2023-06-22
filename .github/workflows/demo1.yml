@@ -18,9 +18,8 @@ jobs:
       
     - name: Deploy app
       run: |
-        $TomcatPath = "C:\devops-demo\tomcat"
-        if (Test-Path $TomcatPath\webapps\sampleapp) {
-          Remove-Item $TomcatPath\webapps\sampleapp -Recurse -Force
-          Remove-Item $TomcatPath\webapps\*.war -Force
+        if (Test-Path ${{secrets.TOMCAT_PATH}}\webapps\sampleapp) {
+          Remove-Item ${{secrets.TOMCAT_PATH}}\webapps\sampleapp -Recurse -Force
+          Remove-Item ${{secrets.TOMCAT_PATH}}\webapps\*.war -Force
         }
-        Move-Item .\*.war $TomcatPath\webapps\
+        Move-Item .\*.war ${{secrets.TOMCAT_PATH}}\webapps\
