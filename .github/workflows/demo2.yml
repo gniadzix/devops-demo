@@ -1,0 +1,33 @@
+name: demo1
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Provide branch name'
+        required: true
+        default: main
+        type: string
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  demo:
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.inputs.branch }}
+        
+    - name: Build sample app
+      run: |
+        jar -cvf sampleapp.war *
+      
+    - name: Deploy app
+      run: |
+        if (Test-Path ${{secrets.TOMCAT_PATH}}\webapps\sampleapp) {
+          Remove-Item ${{secrets.TOMCAT_PATH}}\webapps\sampleapp -Recurse -Force
+          Remove-Item ${{secrets.TOMCAT_PATH}}\webapps\*.war -Force
+        }
+        Move-Item .\*.war ${{secrets.TOMCAT_PATH}}\webapps\
