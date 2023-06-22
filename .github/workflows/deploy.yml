@@ -15,8 +15,8 @@ jobs:
     steps:   
     - name: Deploy app
       run: |
-        if (Test-Path ${{ secret.TOMCAT_PATH_ENV }}\webapps\sampleapp) {
-          Remove-Item ${{ secret.TOMCAT_PATH_ENV }}\webapps\sampleapp -Recurse -Force
-          Remove-Item ${{ secret.TOMCAT_PATH_ENV }}\webapps\*.war -Force
+        if (Test-Path ${{ secrets.TOMCAT_PATH_ENV }}\webapps\sampleapp) {
+          Remove-Item ${{ secrets.TOMCAT_PATH_ENV }}\webapps\sampleapp -Recurse -Force
+          Remove-Item ${{ secrets.TOMCAT_PATH_ENV }}\webapps\*.war -Force
         }
-        Move-Item .\*.war ${{ secret.TOMCAT_PATH_ENV }}\webapps\
+        Move-Item .\*.war ${{ secrets.TOMCAT_PATH_ENV }}\webapps\
