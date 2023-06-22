@@ -1,0 +1,29 @@
+name: demo1
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build sample app
+      run: |
+        jar -cvf sampleapp.war *
+      shell: pwsh
+    - name: Deploy app
+      run: |
+        $TomcatPath = "C:\devops-demo\tomcat
+        .\$TomcatPath\bin\shutdown.bat
+        if (Test-Path $TomcatPath\webapps\sampleapp) {
+          Remove-Item $TomcatPath\webapps\sampleapp -Recurse -Force
+          Remove-Item $TomcatPath\webapps\*.war -Force
+        }
+        Move-Item .\*.war $TomcatPath\webapps\
+        .\$TomcatPath\bin\startup.bat
+      shell: pwsh
