@@ -13,8 +13,6 @@ on:
         required: true
         default: demo_env
         type: string
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
