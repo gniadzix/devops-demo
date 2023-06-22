@@ -18,6 +18,7 @@ jobs:
       
     - name: Deploy app
       run: |
+        $TomcatPath = "C:\devops-demo\tomcat"
         if (Test-Path $TomcatPath\webapps\sampleapp) {
           Remove-Item $TomcatPath\webapps\sampleapp -Recurse -Force
           Remove-Item $TomcatPath\webapps\*.war -Force
