@@ -8,26 +8,21 @@ on:
         required: true
         default: main
         type: string
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   demo:
-    runs-on: self-hosted
-
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: ${{ github.event.inputs.branch }}
-        
+    runs-on: ubuntu-latest
+    steps: 
     - name: Build sample app
       run: |
-        jar -cvf sampleapp.war *
+        echo "backend_status=success" >> "$GITHUB_OUTPUT"
+        echo "frontend_status=success" >> "$GITHUB_OUTPUT"
       
-    - name: Deploy app
-      run: |
-        if (Test-Path ${{secrets.TOMCAT_PATH}}\webapps\sampleapp) {
-          Remove-Item ${{secrets.TOMCAT_PATH}}\webapps\sampleapp -Recurse -Force
-          Remove-Item ${{secrets.TOMCAT_PATH}}\webapps\*.war -Force
-        }
-        Move-Item .\*.war ${{secrets.TOMCAT_PATH}}\webapps\
+  test1:
+    needs: [demo]
+    if: needs.demo.outputs.backend_status == 'success' && needs.demo.outputs.frontend_status == 'success'
+    runs-on: ubuntu-latest
+    steps: 
+    - name: echo success
+      run: echo "succees""
+      
