@@ -19,7 +19,7 @@ jobs:
         echo "frontend_status=success" >> "$GITHUB_OUTPUT"
       
   test1:
-    needs: [demo]
+    needs: demo
     if: needs.demo.outputs.backend_status == 'success' && needs.demo.outputs.frontend_status == 'success'
     runs-on: ubuntu-latest
     steps: 
