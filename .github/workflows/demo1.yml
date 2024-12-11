@@ -24,8 +24,8 @@ jobs:
       
       
   test1:
-    needs: demo
     if: needs.demo.outputs.bk_status == 'success' || needs.demo.outputs.ft_status == 'success'
+    needs: demo
     runs-on: ubuntu-latest
     steps: 
     - name: echo success
