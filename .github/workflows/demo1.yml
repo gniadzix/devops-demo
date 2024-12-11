@@ -16,7 +16,7 @@ jobs:
     - name: Build sample app
       id: get_status
       run: |
-        test1=success
+        test1=failed
         test2=success
         if [ "$test1" == "failed" ] || [ "$test2" == "failed" ]; then
           exit 1
