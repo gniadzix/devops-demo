@@ -24,7 +24,7 @@ jobs:
       
       
   test1:
-    if: github.actor == 'gniadzix' && (${{ needs.demo.outputs.bk_status == 'success' }} || ${{ needs.demo.outputs.ft_status == 'success' }})
+    if: ${{ github.actor == 'gniadzix' }} && ${{ needs.demo.outputs.bk_status == 'success' || needs.demo.outputs.ft_status == 'success' }}
     needs: demo
     runs-on: ubuntu-latest
     steps: 
