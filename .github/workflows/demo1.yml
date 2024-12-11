@@ -17,7 +17,7 @@ jobs:
       id: get_status
       run: |
         echo "backend_status=success" >> "$GITHUB_OUTPUT"
-        echo "frontend_status=success" >> "$GITHUB_OUTPUT"
+        echo "frontend_status=failed" >> "$GITHUB_OUTPUT"
     outputs:
       bk_status: ${{ steps.get_status.outputs.backend_status }}
       ft_status: ${{ steps.get_status.outputs.frontend_status }}
