@@ -14,13 +14,18 @@ jobs:
     runs-on: ubuntu-latest
     steps: 
     - name: Build sample app
+      id: get_status
       run: |
         echo "backend_status=success" >> "$GITHUB_OUTPUT"
         echo "frontend_status=success" >> "$GITHUB_OUTPUT"
+    outputs:
+      bk_status: ${{ steps.get_status.outputs.backend_status }}
+      ft_status: ${{ steps.get_status.outputs.frontend_status }}
+      
       
   test1:
     needs: demo
-    if: needs.demo.outputs.backend_status == 'success' && needs.demo.outputs.frontend_status == 'success'
+    if: needs.demo.outputs.bk_status == 'success' && needs.demo.outputs.ft_status == 'success'
     runs-on: ubuntu-latest
     steps: 
     - name: echo success
